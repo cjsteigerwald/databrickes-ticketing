@@ -21,17 +21,14 @@ jobs:
           elif [[ $GITHUB_REF_NAME == 'test' ]]; then
               echo "DATABRICKS_BUNDLE_ENV=test" >> "$GITHUB_ENV"
           elif [[ $GITHUB_REF_NAME == 'dev' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=turkey" >> "$GITHUB_ENV"
+              echo "DATABRICKS_BUNDLE_ENV=dev" >> "$GITHUB_ENV"
           fi
-      - name: Test env
-        run: |
-          echo "This is env: ${DATABRICKS_BUNDLE_ENV}"
-      # - name: Get Code
-      #   uses: actions/checkout@v3
-      # - name: Setup cli
-      #   uses: databricks/setup-cli@main
-      # - run: databricks bundle deploy
-      #   working-directory: .
-      #   env:
-      #     DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
-      #     DATABRICKS_BUNDLE_ENV: dev
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Setup cli
+        uses: databricks/setup-cli@main
+      - run: databricks bundle deploy
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: ${DATABRICKS_BUNDLE_ENV}
