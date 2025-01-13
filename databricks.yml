@@ -1,0 +1,31 @@
+# This is the configuration for the Databricks Asset Bundle my_test_bundle.
+
+bundle:
+  name: ticketing_bundle
+
+include:
+  - ./libraries/vars-dev.yml
+  - ./resources/*.yml
+
+# The main job for my_test_bundle
+
+targets:
+  # The deployment targets. See https://docs.databricks.com/en/dev-tools/bundles/deployment-modes.html
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-2200701851064333.13.azuredatabricks.net/
+    variables:
+      cluster_spark_version: 15.4.x-scala2.12
+      cluster_node_type: Standard_DS3_v2
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-2200701851064333.13.azuredatabricks.net
+      root_path: /Shared/.bundle/prod/${bundle.name}
+    run_as:
+      # This runs as cjsteigerwald@gmail.com in production. Alternatively,
+      # a service principal could be used here using service_principal_name
+      user_name: cjsteigerwald@gmail.com

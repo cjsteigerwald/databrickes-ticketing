@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    Ticketing_Load_to_Bronze:
+      name: Ticketing_Load_to_Bronze
+      email_notifications:
+      on_failure:
+        - cjsteigerwald@gmail.com
+      trigger:
+        pause_status: UNPAUSED
+        file_arrival:
+          url: abfss://landing@deltastg75.dfs.core.windows.net/raw_traffic/
+      tasks:
+        - task_key: Load_to_Bronze
+          notebook_task:
+            notebook_path: notebooks/Load-to-Bronze
+            base_parameters:
+              env: ${var.env}
+            source: GIT
+          existing_cluster_id: ${var.existing_cluster_id}
+      git_source:
+        git_url: ${var.git_url}
+        git_provider: gitHub
+        git_branch: ${var.git_branch}
+      queue:
+        enabled: true
