@@ -21,7 +21,7 @@ jobs:
           elif [[ $GITHUB_REF_NAME == 'test' ]]; then
               echo "DATABRICKS_BUNDLE_ENV=test" >> "$GITHUB_ENV"
           elif [[ $GITHUB_REF_NAME == 'dev' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=dev" >> "$GITHUB_ENV"
+              echo "DATABRICKS_BUNDLE_ENV=turkey" >> "$GITHUB_ENV"
           fi
       - name: Test env
         run: |
