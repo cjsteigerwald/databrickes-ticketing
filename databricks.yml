@@ -17,8 +17,8 @@ targets:
     workspace:
       host: https://adb-2200701851064333.13.azuredatabricks.net/
     variables:
-      cluster_spark_version: 15.4.x-scala2.12
-      cluster_node_type: Standard_DS3_v2
+      cluster_spark_version: ${var.cluster_spark_version}
+      cluster_node_type: ${var.cluster_node_type}
 
   prod:
     mode: production
