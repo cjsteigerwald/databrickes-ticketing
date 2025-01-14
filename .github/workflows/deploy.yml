@@ -33,6 +33,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
+            az account show
             az keyvault secret show \
             --name DATABRICKS-CLIENT-SECRET \
             --vault-name databricks75-kv \
