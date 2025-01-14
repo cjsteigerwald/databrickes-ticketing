@@ -3,8 +3,8 @@ resources:
     Ticketing_Load_to_Bronze:
       name: Ticketing_Load_to_Bronze
       email_notifications:
-      on_failure:
-        - cjsteigerwald@gmail.com
+        on_failure:
+          - cjsteigerwald@gmail.com
       trigger:
         pause_status: UNPAUSED
         file_arrival:
