@@ -33,10 +33,10 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az account show
-            az keyvault secret show \ 
-              --name DATABRICKS-CLIENT-SECRET \
-              --vault-name databricks75-kv
+            az keyvault secret show \
+            --name DATABRICKS-CLIENT-SECRET \
+            --vault-name databricks75-kv \
+            --query value -o tsv
 
       # - name: Setup cli
       #   uses: databricks/setup-cli@main
