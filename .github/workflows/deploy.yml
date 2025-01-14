@@ -25,9 +25,9 @@ jobs:
 
       - name: Test
         env:
-          ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
+          ENV_VAR: ${{ vars.DATABRICKS_CLIENT_ID }}
         run: |
-          echo "Wiil this: ${{ vars.ENV_CONTEXT_VAR }}"
+          echo "Wiil this: $ENV_VAR"
 
       # - name: Azure Login
       #   uses: azure/login@v2
