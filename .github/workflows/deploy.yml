@@ -42,4 +42,4 @@ jobs:
         env:
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
           DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-          DATABRICKS_BUNDLE_ENV: ${ENV_VAR}
+          DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
