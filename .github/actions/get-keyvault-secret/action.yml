@@ -1,0 +1,24 @@
+name: 'Get Keyvault Secrets'
+description: 'Get Secrets from key vault'
+inputs:
+  keyvault_name:
+    description: 'Name of keyvault'
+    required: true
+  secret_name:
+    description: 'Secret to get from keyvault'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Get Secret from Keyvault
+      uses: azure/cli@v2
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az account show
+          secret=$(az keyvault secret show \
+          --name ${{ inputs.secret_name }} \
+          --vault-name ${{ inputs.keyvault_name }} \
+          --query value -o tsv)
+          echo "kv_secret='$secret`" >> $GITHUB_OUTPUT
