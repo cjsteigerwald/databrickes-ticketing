@@ -23,23 +23,17 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Test
-        env:
-          ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
-        run: |
-          echo "Wiil this: $ENV_VAR"
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # - name: Azure Login
-      #   uses: azure/login@v2
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # - name: Azure CLI script
-      #   uses: azure/cli@v2
-      #   with:
-      #     azcliversion: latest
-      #     inlineScript: |
-      #       az account show
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
 
       - name: Setup cli
         uses: databricks/setup-cli@main
