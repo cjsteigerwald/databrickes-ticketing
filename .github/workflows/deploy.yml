@@ -28,6 +28,7 @@ jobs:
           ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
         run: |
           echo "ENV: $ENV_VAR"
+          echo "Wiil this: ${{ vars.ENV_CONTEXT_VAR }}"
 
       # - name: Azure Login
       #   uses: azure/login@v2
