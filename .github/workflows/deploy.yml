@@ -11,22 +11,15 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  # Setting an environment variable with the value of a configuration variable
+  ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
+
 jobs:
   deploy:
     name: 'Deploy Bundle'
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment for branch
-        run: |
-          if [[ $GITHUB_REF_NAME == 'main' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=prod" >> "$GITHUB_ENV"
-          elif [[ $GITHUB_REF_NAME == 'staging' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=staging" >> "$GITHUB_ENV"
-          elif [[ $GITHUB_REF_NAME == 'test' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=test" >> "$GITHUB_ENV"
-          elif [[ $GITHUB_REF_NAME == 'dev' ]]; then
-              echo "DATABRICKS_BUNDLE_ENV=dev" >> "$GITHUB_ENV"
-          fi
       - name: Get Code
         uses: actions/checkout@v3
 
@@ -47,6 +40,6 @@ jobs:
       - run: databricks bundle deploy
         working-directory: .
         env:
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.SP_TOKEN }}
-          DATABRICKS_CLIENT_ID: 0a49a47b-e012-42c9-a1b9-8aab449a9a7e
-          DATABRICKS_BUNDLE_ENV: ${{ env.DATABRICKS_BUNDLE_ENV }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_BUNDLE_ENV: ${ENV_VAR}
