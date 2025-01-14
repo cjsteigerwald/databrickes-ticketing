@@ -28,23 +28,29 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
-            secret=$(az keyvault secret show \
-            --name DATABRICKS-CLIENT-SECRET \
-            --vault-name databricks75-kv \
-            --query value -o tsv)
-            echo "Secret: $secret"
+      # - name: Azure CLI script
+      #   uses: azure/cli@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az account show
+      #       secret=$(az keyvault secret show \
+      #       --name DATABRICKS-CLIENT-SECRET \
+      #       --vault-name databricks75-kv \
+      #       --query value -o tsv)
+      #       echo "Secret: $secret"
 
-      # - name: Setup cli
-      #   uses: databricks/setup-cli@main
-      # - run: databricks bundle deploy
-      #   working-directory: .
-      #   env:
-      #     DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-      #     DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-      #     DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
+      # - name: Get Secrets
+      #   uses: ./.github/actions/get-keyvault-secret
+      #   with:
+      #     keyvault_name: databricks75-kv
+      #     secret_name: DATABRICKS-CLIENT-SECRET
+
+      - name: Setup cli
+        uses: databricks/setup-cli@main
+      - run: databricks bundle deploy
+        working-directory: .
+        env:
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
