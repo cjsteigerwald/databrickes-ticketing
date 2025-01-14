@@ -25,7 +25,7 @@ jobs:
 
       - name: Test
         env:
-          ENV_VAR: ${{ vars.TEST }}
+          ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
         run: |
           echo "Wiil this: $ENV_VAR"
 
