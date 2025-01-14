@@ -23,6 +23,10 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
+      - name: Test
+        run: |
+          echo "ENV: ${{ vars.ENV_CONTEXT_VAR }}"
+
       # - name: Azure Login
       #   uses: azure/login@v2
       #   with:
@@ -35,11 +39,11 @@ jobs:
       #     inlineScript: |
       #       az account show
 
-      - name: Setup cli
-        uses: databricks/setup-cli@main
-      - run: databricks bundle deploy
-        working-directory: .
-        env:
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-          DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
+      # - name: Setup cli
+      #   uses: databricks/setup-cli@main
+      # - run: databricks bundle deploy
+      #   working-directory: .
+      #   env:
+      #     DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      #     DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+      #     DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
