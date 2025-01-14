@@ -17,7 +17,7 @@ env:
 
 jobs:
   deploy:
-    name: 'Deploy Bundle'
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
