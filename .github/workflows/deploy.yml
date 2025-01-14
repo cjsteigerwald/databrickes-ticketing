@@ -18,7 +18,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: Develop
+    environment: ${{ github.ref_name }}
     steps:
       - name: Get Code
         uses: actions/checkout@v3
