@@ -11,13 +11,12 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  # Setting an environment variable with the value of a configuration variable
-  ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
+# env:
+#   # Setting an environment variable with the value of a configuration variable
+#   ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
   deploy:
-    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
