@@ -30,23 +30,23 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      # - name: Azure Login
+      #   uses: azure/login@v2
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+      # - name: Azure CLI script
+      #   uses: azure/cli@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az account show
 
-      # - name: Setup cli
-      #   uses: databricks/setup-cli@main
-      # - run: databricks bundle deploy
-      #   working-directory: .
-      #   env:
-      #     DATABRICKS_CLIENT_SECRET: ${{ secrets.SP_TOKEN }}
-      #     DATABRICKS_CLIENT_ID: 0a49a47b-e012-42c9-a1b9-8aab449a9a7e
-      #     DATABRICKS_BUNDLE_ENV: ${{ env.DATABRICKS_BUNDLE_ENV }}
+      - name: Setup cli
+        uses: databricks/setup-cli@main
+      - run: databricks bundle deploy
+        working-directory: .
+        env:
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.SP_TOKEN }}
+          DATABRICKS_CLIENT_ID: 0a49a47b-e012-42c9-a1b9-8aab449a9a7e
+          DATABRICKS_BUNDLE_ENV: ${{ env.DATABRICKS_BUNDLE_ENV }}
