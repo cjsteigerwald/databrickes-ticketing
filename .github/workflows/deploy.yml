@@ -4,16 +4,10 @@ on:
     branches:
       - main
       - dev
-# env:
-#   CACHE_KEY: node-deps
-#   MONGODB_DB_NAME: gha-demo
+
 permissions:
   id-token: write
   contents: read
-
-# env:
-#   # Setting an environment variable with the value of a configuration variable
-#   ENV_VAR: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
   deploy:
@@ -28,18 +22,6 @@ jobs:
         id: az-login
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # - name: Azure CLI script
-      #   uses: azure/cli@v2
-      #   with:
-      #     azcliversion: latest
-      #     inlineScript: |
-      #       az account show
-      #       secret=$(az keyvault secret show \
-      #       --name DATABRICKS-CLIENT-SECRET \
-      #       --vault-name databricks75-kv \
-      #       --query value -o tsv)
-      #       echo "Secret: $secret"
 
       - name: Get Secrets
         id: get-secrets
