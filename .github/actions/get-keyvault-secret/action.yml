@@ -10,7 +10,8 @@ inputs:
 outputs:
   secret_value:
     description: 'Value of secret'
-    value: ${{ steps.get-secret-value.kv_secret }}
+    value: 'test vars'
+    # value: ${{ steps.get-secret-value.kv_secret }}
 
 runs:
   using: composite
