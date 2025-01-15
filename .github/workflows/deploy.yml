@@ -53,15 +53,15 @@ jobs:
         run: |
           echo "Secret: ${{ steps.get-secrets.outputs.secret_value }}"
 
-      - name: Install Databricks cli
-        id: databricks-cli-install
-        if: steps.get-secrets.outcome == 'success'
-        uses: databricks/setup-cli@main
+      # - name: Install Databricks cli
+      #   id: databricks-cli-install
+      #   if: steps.get-secrets.outcome == 'success'
+      #   uses: databricks/setup-cli@main
 
-      - run: databricks bundle deploy
-        if: steps.databricks-cli-install.outcome == 'success'
-        working-directory: .
-        env:
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
-          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-          DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
+      # - run: databricks bundle deploy
+      #   if: steps.databricks-cli-install.outcome == 'success'
+      #   working-directory: .
+      #   env:
+      #     DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      #     DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+      #     DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
