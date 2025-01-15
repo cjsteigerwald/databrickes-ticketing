@@ -23,10 +23,11 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      # - name: Azure Login
-      #   uses: azure/login@v2
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Azure Login
+        uses: azure/login@v2
+        id: az-login
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # - name: Azure CLI script
       #   uses: azure/cli@v2
@@ -40,15 +41,25 @@ jobs:
       #       --query value -o tsv)
       #       echo "Secret: $secret"
 
-      # - name: Get Secrets
-      #   uses: ./.github/actions/get-keyvault-secret
-      #   with:
-      #     keyvault_name: databricks75-kv
-      #     secret_name: DATABRICKS-CLIENT-SECRET
+      - name: Get Secrets
+        id: get-secrets
+        if: steps.az-login.outcome == 'success'
+        uses: ./.github/actions/get-keyvault-secret
+        with:
+          keyvault_name: databricks75-kv
+          secret_name: DATABRICKS-CLIENT-SECRET
+       
+      - name: Output Information
+        run: |
+          echo "Secret: ${{ steps.get-secrets.secret_value }}"
 
-      - name: Setup cli
+      - name: Install Databricks cli
+        id: databricks-cli-install
+        if: steps.get-secrets.outcome == 'success'
         uses: databricks/setup-cli@main
+
       - run: databricks bundle deploy
+        if: steps.databricks-cli-install.outcome == 'success'
         working-directory: .
         env:
           DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}

@@ -7,11 +7,16 @@ inputs:
   secret_name:
     description: 'Secret to get from keyvault'
     required: true
+outputs:
+  secret_value:
+    description: 'Value of secret'
+    value: ${{ steps.get-secret-value.kv_secret }}
 
 runs:
   using: composite
   steps:
     - name: Get Secret from Keyvault
+      id: get-secret-value
       uses: azure/cli@v2
       with:
         azcliversion: latest
