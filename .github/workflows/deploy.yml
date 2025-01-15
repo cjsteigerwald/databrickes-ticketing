@@ -44,14 +44,14 @@ jobs:
       - name: Get Secrets
         id: get-secrets
         if: steps.az-login.outcome == 'success'
-        uses: ./.github/actions/get-keyvault-secret
+        uses: Azure/get-keyvault-secrets@v1
         with:
-          keyvault_name: databricks75-kv
-          secret_name: DATABRICKS-CLIENT-SECRET
+          keyvault: ${{ vars.KEYVAULT_NAME }}
+          secrets: DATABRICKS-CLIENT-SECRET
 
       - name: Output Information
         run: |
-          echo "Secret: ${{ steps.get-secrets.outputs.secret_value }}"
+          echo "Secret: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-SECRET'] }}"
 
       # - name: Install Databricks cli
       #   id: databricks-cli-install
