@@ -26,4 +26,4 @@ runs:
           --name ${{ inputs.secret_name }} \
           --vault-name ${{ inputs.keyvault_name }} \
           --query value -o tsv)
-          echo "kv_secret='$secret`" >> $GITHUB_OUTPUT
+          echo "kv_secret='$secret'" >> $GITHUB_OUTPUT
