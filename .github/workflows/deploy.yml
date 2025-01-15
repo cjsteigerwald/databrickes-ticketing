@@ -48,10 +48,10 @@ jobs:
         with:
           keyvault_name: databricks75-kv
           secret_name: DATABRICKS-CLIENT-SECRET
-       
+
       - name: Output Information
         run: |
-          echo "Secret: ${{ steps.get-secrets.secret_value }}"
+          echo "Secret: ${{ steps.get-secrets.outputs.secret_value }}"
 
       - name: Install Databricks cli
         id: databricks-cli-install
