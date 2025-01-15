@@ -47,7 +47,7 @@ jobs:
         uses: Azure/get-keyvault-secrets@v1
         with:
           keyvault: ${{ vars.KEYVAULT_NAME }}
-          secrets: 'DATABRICKS-CLIENT-SECRET, DATABRICKS_CLIENT_ID'
+          secrets: 'DATABRICKS-CLIENT-SECRET, DATABRICKS-CLIENT-ID'
 
       - name: Install Databricks cli
         id: databricks-cli-install
@@ -59,5 +59,5 @@ jobs:
         working-directory: .
         env:
           DATABRICKS_CLIENT_SECRET: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-SECRET'] }}
-          DATABRICKS_CLIENT_ID: ${{ steps.get-secrets.outputs['DATABRICKS_CLIENT_ID'] }}
+          DATABRICKS_CLIENT_ID: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-ID'] }}
           DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
