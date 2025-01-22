@@ -24,7 +24,8 @@ targets:
     run_as:
       # This runs as cjsteigerwald@gmail.com in production. Alternatively,
       # a service principal could be used here using service_principal_name
-      service_principal_name: 0a49a47b-e012-42c9-a1b9-8aab449a9a7e
+      # service_principal_name: 0a49a47b-e012-42c9-a1b9-8aab449a9a7e
+      user_name: cjsteigerwald@gmail.com
 
   prod:
     mode: production
