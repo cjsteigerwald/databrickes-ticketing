@@ -10,9 +10,9 @@ resources:
         file_arrival:
           url: abfss://landing@deltastg75.dfs.core.windows.net/raw_traffic/
       tasks:
-        - task_key: Load_to_Bronze
+        - task_key: Load_to_Silver
           notebook_task:
-            notebook_path: notebooks/Load-to-Bronze
+            notebook_path: notebooks/Load-to-Silver
             base_parameters:
               env: ${var.env}
             source: GIT
