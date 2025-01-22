@@ -1,7 +1,7 @@
 resources:
   jobs:
     Ticketing_Load_to_Bronze:
-      name: Ticketing_Load_to_Bronze
+      name: Ticketing_Load_to_Silver
       email_notifications:
         on_failure:
           - cjsteigerwald@gmail.com
