@@ -17,29 +17,32 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Azure Login
-        uses: azure/login@v2
-        id: az-login
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
 
-      - name: Get Secrets
-        id: get-secrets
-        if: steps.az-login.outcome == 'success'
-        uses: Azure/get-keyvault-secrets@v1
-        with:
-          keyvault: ${{ vars.KEYVAULT_NAME }}
-          secrets: 'DATABRICKS-CLIENT-SECRET, DATABRICKS-CLIENT-ID'
+      # - name: Azure Login
+      #   uses: azure/login@v2
+      #   id: az-login
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Install Databricks cli
-        id: databricks-cli-install
-        if: steps.get-secrets.outcome == 'success'
-        uses: databricks/setup-cli@main
+      # - name: Get Secrets
+      #   id: get-secrets
+      #   if: steps.az-login.outcome == 'success'
+      #   uses: Azure/get-keyvault-secrets@v1
+      #   with:
+      #     keyvault: ${{ vars.KEYVAULT_NAME }}
+      #     secrets: 'DATABRICKS-CLIENT-SECRET, DATABRICKS-CLIENT-ID'
 
-      - run: databricks bundle deploy
-        if: steps.databricks-cli-install.outcome == 'success'
-        working-directory: .
-        env:
-          DATABRICKS_CLIENT_SECRET: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-SECRET'] }}
-          DATABRICKS_CLIENT_ID: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-ID'] }}
-          DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
+      # - name: Install Databricks cli
+      #   id: databricks-cli-install
+      #   if: steps.get-secrets.outcome == 'success'
+      #   uses: databricks/setup-cli@main
+
+      # - run: databricks bundle deploy
+      #   if: steps.databricks-cli-install.outcome == 'success'
+      #   working-directory: .
+      #   env:
+      #     DATABRICKS_CLIENT_SECRET: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-SECRET'] }}
+      #     DATABRICKS_CLIENT_ID: ${{ steps.get-secrets.outputs['DATABRICKS-CLIENT-ID'] }}
+      #     DATABRICKS_BUNDLE_ENV: ${{ vars.ENV_CONTEXT_VAR }}
