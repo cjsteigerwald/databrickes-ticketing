@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Azure Login
+      # - name: Azure Login 
       #   uses: azure/login@v2
       #   id: az-login
       #   with:
