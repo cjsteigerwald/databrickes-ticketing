@@ -6,8 +6,10 @@ on:
       - dev
 
 permissions:
-  id-token: write
-  contents: write
+  contents: write # to be able to publish a GitHub release
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+  id-token: write # to enable use of OIDC for npm provenance
 
 jobs:
   deploy:
@@ -15,7 +17,9 @@ jobs:
     environment: ${{ github.ref_name }}
     steps:
       - name: Get Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # - uses: christophebedard/tag-version-commit@v1
       #   with:
@@ -30,6 +34,7 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         with:
+          tag_format: ${version}-develop
           extra_plugins: |
             @semantic-release/git
         env:
