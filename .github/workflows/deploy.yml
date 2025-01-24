@@ -17,17 +17,23 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v3
 
-      - name: Install semantic
-        run: |
-          npm install semantic-release
-
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
+      - uses: christophebedard/tag-version-commit@v1
         with:
-          extra_plugins: |
-            @semantic-release/git
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version_tag_prefix: 'v'
+          version_regex: 'Version: ([0-9]+\.[0-9]+\.[0-9]+)'
+
+      # - name: Install semantic
+      #   run: |
+      #     npm install semantic-release
+
+      # - name: Semantic Release
+      #   uses: cycjimmy/semantic-release-action@v4
+      #   with:
+      #     extra_plugins: |
+      #       @semantic-release/git
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Azure Login
       #   uses: azure/login@v2
